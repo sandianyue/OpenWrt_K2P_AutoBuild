@@ -19,7 +19,7 @@ on:
       - main
     paths:
       - 'k2p_bs_no_mwan3-natflow-sfe.config'
-#  schedule:
+  schedule:
     - cron: 0 14 * * 5
 #  watch:
 #    types: started
