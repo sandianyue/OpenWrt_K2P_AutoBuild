@@ -16,7 +16,7 @@ on:
     types: published
   push:
     branches:
-      - main
+      - dev
     paths:
       - 'k2p_bs_no_mwan3.config'
   schedule:
