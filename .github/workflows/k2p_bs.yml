@@ -8,13 +8,13 @@
 # Description: Build OpenWrt using GitHub Actions
 #
 
-name: Auto Customize Build OpenWrt-K2P Beta2
+name: Auto Customize Build OpenWrt-K2P
 
 on:
   repository_dispatch:
   release:
     types: published
-  push:
+#  push:
     branches:
       - main
     paths:
