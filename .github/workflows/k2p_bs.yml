@@ -12,7 +12,7 @@ name: Auto Customize Build OpenWrt-K2P
 
 on:
   repository_dispatch:
-  release:
+#  release:
     types: published
 #  push:
     branches:
