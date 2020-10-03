@@ -34,7 +34,7 @@ env:
   CONFIG_FILE: TEST.config
   DIY_P1_SH: OFFICIAL_OP.sh
   DIY_P2_SH: diy-part2.sh
-  SSH_ACTIONS: false
+  SSH_ACTIONS: true
   UPLOAD_BIN_DIR: true
   UPLOAD_FIRMWARE: true
   UPLOAD_COWTRANSFER: false
