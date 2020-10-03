@@ -29,7 +29,7 @@ env:
   REPO_BRANCH: master
   REPLACE_URL: https://github.com/MeIsReallyBa/x-wrt
   REPLACE_BRANCH: master
-  TARGET_DIR: /workdir/x-wrt/taget
+  TARGET_DIR: /workdir/x-wrt/target
   FEEDS_CONF: feeds.conf.default
   CONFIG_FILE: OFFICIAL_OP.config
   DIY_P1_SH: OFFICIAL_OP.sh
