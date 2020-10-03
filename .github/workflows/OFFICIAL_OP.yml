@@ -8,7 +8,7 @@
 # Description: Build OpenWrt using GitHub Actions
 #
 
-name: k2p_bs_no_mwan3-natflow-flowoffload
+name: OFFICIAL_OP_BUILDER
 
 on:
   repository_dispatch:
