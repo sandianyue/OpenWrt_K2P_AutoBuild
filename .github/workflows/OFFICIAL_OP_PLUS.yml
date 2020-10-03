@@ -81,6 +81,19 @@ jobs:
 
     - name: Update feeds
       run: cd openwrt && ./scripts/feeds update -a
+    - name: rm -rf duplicate
+      run: | 
+        rm -rf feeds/pass/lienol/ipt2socks
+        rm -rf feeds/pass/lienol/shadowsocksr-libev
+        rm -rf feeds/pass/lienol/pdnsd-alt
+        rm -rf feeds/pass/package/verysync
+        rm -rf feeds/pass/lienol/luci-app-verysync
+        rm -rf package/pass/luci-app-kodexplorer
+        rm -rf package/pass/luci-app-pppoe-relay
+        rm -rf package/pass/luci-app-pptp-server
+        rm -rf package/pass/luci-app-v2ray-server
+        ls /workdir/openwrt/feeds/pass | egrep -v lienol | xargs rm -rf
+      
 
     - name: Install feeds
       run: cd openwrt && ./scripts/feeds install -a
