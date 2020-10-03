@@ -21,8 +21,8 @@ on:
       - 'OFFICIAL_OP.config'
   schedule:
     - cron: 0 14 * * 5
-#  watch:
-#    types: started
+  watch:
+    types: started
 
 env:
   REPO_URL: https://github.com/openwrt/openwrt
