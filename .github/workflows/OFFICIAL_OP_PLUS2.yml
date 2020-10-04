@@ -18,7 +18,7 @@ on:
     branches:
       - main
     paths:
-      - 'OFFICIAL_OP_PLUS.config'
+      - 'OFFICIAL_OP_PLUS2.config'
   schedule:
     - cron: 0 14 * * 5
   watch:
@@ -34,7 +34,7 @@ env:
   TARGET_DIR: /workdir/x-wrt/target
   LEAN_DIR: /workdir/lede/package/lean
   FEEDS_CONF: feeds.conf.default
-  CONFIG_FILE: OFFICIAL_OP_PLUS.config
+  CONFIG_FILE: OFFICIAL_OP_PLUS2.config
   DIY_P1_SH: OFFICIAL_OP_PLUS.sh
   DIY_P2_SH: diy-part2.sh
   SSH_ACTIONS: false
