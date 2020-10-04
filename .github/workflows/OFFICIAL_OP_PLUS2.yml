@@ -27,7 +27,7 @@ on:
 env:
   REPO_URL: https://github.com/openwrt/openwrt
   REPO_BRANCH: master
-  REPLACE_URL: https://github.com/MeIsReallyBa/x-wrt
+  REPLACE_URL: https://github.com/x-wrt/x-wrt
   REPLACE_BRANCH: master
   LEAN_URL: https://github.com/coolsnowwolf/lede
   LEAN_BRANCH: master
