@@ -88,6 +88,7 @@ jobs:
         cp $PATCH_FILE openwrt/target/linux/generic/backport-5.4/011-kbuild-export-SUBARCH.patch
         cp -r openwrt-bak/target/linux/generic/hack-5.4/* openwrt/target/linux/generic/hack-5.4
         cp -r openwrt-bak/target/linux/generic/backport-5.4/* openwrt/target/linux/generic/backport-5.4
+        rm -f openwrt/target/linux/generic/backport-5.4/716-v5.4-net-sfp-move-fwnode-parsing-into-sfp-bus-layer.patch
         
 
     - name: Load custom feeds
