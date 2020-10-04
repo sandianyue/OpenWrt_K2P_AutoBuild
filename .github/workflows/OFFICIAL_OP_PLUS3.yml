@@ -76,6 +76,7 @@ jobs:
       run: |
         df -hT $PWD
         git clone --depth 1 $REPO_URL -b $REPO_BRANCH openwrt
+        cp -r openwrt openwrt-bak
         ln -sf /workdir/openwrt $GITHUB_WORKSPACE/openwrt
         git clone --depth 1 $REPLACE_URL -b $REPLACE_BRANCH x-wrt
         [ -e $TARGET_DIR ] && cp -R $TARGET_DIR openwrt
@@ -85,6 +86,7 @@ jobs:
         cp -R $LEDE_FIREWALL_DIR/patches $OP_FIREWALL_DIR
         git clone --depth 1 $PATCH_URL -b $PATCH_BRANCH x-wrt-x-wrt
         cp $PATCH_FILE openwrt/target/linux/generic/backport-5.4/011-kbuild-export-SUBARCH.patch
+        cp -r openwrt-bak/target/linux/generic/hack-5.4/* openwrt/target/linux/generic/hack-5.4
         
 
     - name: Load custom feeds
