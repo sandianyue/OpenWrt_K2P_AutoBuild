@@ -18,7 +18,7 @@ on:
     branches:
       - main
     paths:
-      - 'OFFICIAL_OP_PLUS3.config'
+      - 'OFFICIAL_OP_PLUS4.config'
   schedule:
     - cron: 0 14 * * 5
   watch:
@@ -39,7 +39,7 @@ env:
   OP_FIREWALL_DIR: /workdir/openwrt/package/network/config/firewall
   PATCH_FILE: /workdir/x-wrt-x-wrt/target/linux/generic/backport-5.4/011-kbuild-export-SUBARCH.patch
   FEEDS_CONF: feeds.conf.default
-  CONFIG_FILE: OFFICIAL_OP_PLUS3.config
+  CONFIG_FILE: OFFICIAL_OP_PLUS4.config
   DIY_P1_SH: OFFICIAL_OP_PLUS.sh
   DIY_P2_SH: diy-part2.sh
   SSH_ACTIONS: false
