@@ -1,0 +1,192 @@
+#
+# Copyright (c) 2019-2020 P3TERX <https://p3terx.com>
+#
+# This is free software, licensed under the MIT License.
+# See /LICENSE for more information.
+#
+# https://github.com/P3TERX/Actions-OpenWrt
+# Description: Build OpenWrt using GitHub Actions
+#
+
+name: OFFICIAL_OP_PLUS_BUILDER4#pending_replace
+
+on:
+  repository_dispatch:
+#  release:
+    types: published
+  push:
+    branches:
+      - main
+    paths:
+      - 'OFFICIAL_OP_PLUS3.config'
+  schedule:
+    - cron: 0 14 * * 5
+  watch:
+    types: started
+
+env:
+  REPO_URL: https://github.com/openwrt/openwrt
+  REPO_BRANCH: master
+  REPLACE_URL: https://github.com/MeIsReallyBa/x-wrt
+  REPLACE_BRANCH: master
+  LEAN_URL: https://github.com/coolsnowwolf/lede
+  LEAN_BRANCH: master
+  PATCH_URL: https://github.com/x-wrt/x-wrt
+  PATCH_BRANCH: master
+  TARGET_DIR: /workdir/x-wrt/target
+  LEAN_DIR: /workdir/lede/package/lean
+  LEDE_FIREWALL_DIR: /workdir/lede/package/network/config/firewall
+  OP_FIREWALL_DIR: /workdir/openwrt/package/network/config/firewall
+  PATCH_FILE: /workdir/x-wrt-x-wrt/target/linux/generic/backport-5.4/011-kbuild-export-SUBARCH.patch
+  FEEDS_CONF: feeds.conf.default
+  CONFIG_FILE: OFFICIAL_OP_PLUS3.config
+  DIY_P1_SH: OFFICIAL_OP_PLUS.sh
+  DIY_P2_SH: diy-part2.sh
+  SSH_ACTIONS: false
+  UPLOAD_BIN_DIR: true
+  UPLOAD_FIRMWARE: true
+  UPLOAD_COWTRANSFER: false
+  UPLOAD_WETRANSFER: false
+  TZ: Asia/Shanghai
+
+jobs:
+  build:
+    runs-on: ubuntu-18.04
+    if: github.event.repository.owner.id == github.event.sender.id
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@main
+
+    - name: Initialization environment
+      env:
+        DEBIAN_FRONTEND: noninteractive
+      run: |
+        sudo rm -rf /etc/apt/sources.list.d/* /usr/share/dotnet /usr/local/lib/android /opt/ghc
+        sudo -E apt-get -qq update
+        sudo -E apt-get -qq install $(curl -fsSL git.io/depends-ubuntu-1804)
+        sudo -E apt-get -qq autoremove --purge
+        sudo -E apt-get -qq clean
+        sudo timedatectl set-timezone "$TZ"
+        sudo mkdir -p /workdir
+        sudo chown $USER:$GROUPS /workdir
+
+    - name: Clone source code
+      working-directory: /workdir
+      run: |
+        df -hT $PWD
+        git clone --depth 1 $REPO_URL -b $REPO_BRANCH openwrt
+        cp -r openwrt openwrt-bak
+        ln -sf /workdir/openwrt $GITHUB_WORKSPACE/openwrt
+        git clone --depth 1 $REPLACE_URL -b $REPLACE_BRANCH x-wrt
+        [ -e $TARGET_DIR ] && cp -R $TARGET_DIR openwrt
+        git clone --depth 1 $LEAN_URL -b $LEAN_BRANCH lede
+        [ -e $LEAN_DIR ] && cp -R $LEAN_DIR openwrt/package
+        cp $LEDE_FIREWALL_DIR/Makefile $OP_FIREWALL_DIR/Makefile
+        cp -R $LEDE_FIREWALL_DIR/patches $OP_FIREWALL_DIR
+        git clone --depth 1 $PATCH_URL -b $PATCH_BRANCH x-wrt-x-wrt
+        cp $PATCH_FILE openwrt/target/linux/generic/backport-5.4/011-kbuild-export-SUBARCH.patch
+        cp -r openwrt-bak/target/linux/generic/hack-5.4/* openwrt/target/linux/generic/hack-5.4
+        cp -r openwrt-bak/target/linux/generic/backport-5.4/* openwrt/target/linux/generic/backport-5.4
+        cp -r openwrt-bak/target/linux/generic/pending-5.4/* openwrt/target/linux/generic/pending-5.4
+
+    - name: Load custom feeds
+      run: |
+        [ -e $FEEDS_CONF ] && mv $FEEDS_CONF openwrt/feeds.conf.default
+        chmod +x $DIY_P1_SH
+        cd openwrt
+        $GITHUB_WORKSPACE/$DIY_P1_SH
+
+    - name: Update feeds
+      run: cd openwrt && ./scripts/feeds update -a
+      
+    - name: rm -rf duplicate
+      run: | 
+        rm -rf feeds/pass/lienol/ipt2socks
+        rm -rf feeds/pass/lienol/shadowsocksr-libev
+        rm -rf feeds/pass/lienol/pdnsd-alt
+        rm -rf feeds/pass/package/verysync
+        rm -rf feeds/pass/lienol/luci-app-verysync
+        rm -rf package/pass/luci-app-kodexplorer
+        rm -rf package/pass/luci-app-pppoe-relay
+        rm -rf package/pass/luci-app-pptp-server
+        rm -rf package/pass/luci-app-v2ray-server
+        ls /workdir/openwrt/feeds/pass | egrep -v lienol | xargs rm -rf
+        ls /workdir/openwrt/feeds/pass/lienol | egrep -v luci-theme-argon-light-mod | xargs rm -rf
+      
+
+    - name: Install feeds
+      run: cd openwrt && ./scripts/feeds install -a
+
+    - name: Load custom configuration
+      run: |
+        [ -e files ] && mv files openwrt/files
+        [ -e $CONFIG_FILE ] && mv $CONFIG_FILE openwrt/.config
+        chmod +x $DIY_P2_SH
+        cd openwrt
+        $GITHUB_WORKSPACE/$DIY_P2_SH
+
+    - name: SSH connection to Actions
+      uses: P3TERX/debugger-action@main
+      if: env.SSH_ACTIONS == 'true' || contains(github.event.action, 'ssh')
+
+    - name: Download package
+      id: package
+      run: |
+        cd openwrt
+        make defconfig
+        make download -j8
+        find dl -size -1024c -exec ls -l {} \;
+        find dl -size -1024c -exec rm -f {} \;
+
+    - name: Compile the firmware
+      id: compile
+      run: |
+        cd openwrt
+        echo -e "$(nproc) thread compile"
+        make V=99
+        echo "::set-output name=status::success"
+        grep '^CONFIG_TARGET.*DEVICE.*=y' .config | sed -r 's/.*DEVICE_(.*)=y/\1/' > DEVICE_NAME
+        [ -s DEVICE_NAME ] && echo "::set-env name=DEVICE_NAME::_$(cat DEVICE_NAME)"
+        echo "::set-env name=FILE_DATE::_$(date +"%Y%m%d%H%M")"
+
+    - name: Check space usage
+      if: (!cancelled())
+      run: df -hT
+
+    - name: Upload bin directory
+      uses: actions/upload-artifact@main
+      if: steps.compile.outputs.status == 'success' && env.UPLOAD_BIN_DIR == 'true'
+      with:
+        name: OpenWrt_bin${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}
+        path: openwrt/bin
+
+    - name: Organize files
+      id: organize
+      if: env.UPLOAD_FIRMWARE == 'true' && !cancelled()
+      run: |
+        cd openwrt/bin/targets/*/*
+        rm -rf packages
+        echo "::set-env name=FIRMWARE::$PWD"
+        echo "::set-output name=status::success"
+
+    - name: Upload firmware directory
+      uses: actions/upload-artifact@main
+      if: steps.organize.outputs.status == 'success' && !cancelled()
+      with:
+        name: OpenWrt_firmware${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}
+        path: ${{ env.FIRMWARE }}
+
+    - name: Upload firmware to cowtransfer
+      if: steps.organize.outputs.status == 'success' && env.UPLOAD_COWTRANSFER == 'true' && !cancelled()
+      run: |
+        curl -fsSL git.io/file-transfer | sh
+        ./transfer cow --block 2621440 -s -p 64 --no-progress ${FIRMWARE} 2>&1 | tee cowtransfer.log
+        echo "::warning file=cowtransfer.com::$(cat cowtransfer.log | grep https)"
+
+    - name: Upload firmware to WeTransfer
+      if: steps.organize.outputs.status == 'success' && env.UPLOAD_WETRANSFER == 'true' && !cancelled()
+      run: |
+        curl -fsSL git.io/file-transfer | sh
+        ./transfer wet -s -p 16 --no-progress ${FIRMWARE} 2>&1 | tee wetransfer.log
+        echo "::warning file=wetransfer.com::$(cat wetransfer.log | grep https)"
