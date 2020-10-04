@@ -87,6 +87,7 @@ jobs:
         git clone --depth 1 $PATCH_URL -b $PATCH_BRANCH x-wrt-x-wrt
         cp $PATCH_FILE openwrt/target/linux/generic/backport-5.4/011-kbuild-export-SUBARCH.patch
         cp -r openwrt-bak/target/linux/generic/hack-5.4/* openwrt/target/linux/generic/hack-5.4
+        cp -r openwrt-bak/target/linux/generic/backport-5.4/* openwrt/target/linux/generic/backport-5.4
         
 
     - name: Load custom feeds
