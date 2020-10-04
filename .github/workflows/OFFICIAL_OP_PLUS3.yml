@@ -31,6 +31,8 @@ env:
   REPLACE_BRANCH: master
   LEAN_URL: https://github.com/coolsnowwolf/lede
   LEAN_BRANCH: master
+  PATCH_URL: https://github.com/x-wrt/x-wrt
+  PATCH_BRANCH: master
   TARGET_DIR: /workdir/x-wrt/target
   LEAN_DIR: /workdir/lede/package/lean
   LEDE_FIREWALL_DIR: /workdir/lede/package/network/config/firewall
