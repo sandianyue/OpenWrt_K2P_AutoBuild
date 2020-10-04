@@ -92,7 +92,7 @@ jobs:
         rm -f openwrt/target/linux/generic/backport-5.4/716-v5.4-net-sfp-move-fwnode-parsing-into-sfp-bus-layer.patch
         rm -f openwrt/target/linux/generic/backport-5.4/742-v5.5-net-sfp-add-support-for-module-quirks.patch
         rm -f openwrt/target/linux/generic/backport-5.4/743-v5.5-net-sfp-add-some-quirks-for-GPON-modules.patch
-        rm -f openwrt/target/linux/generic/hack-5.4/950-fix-crash-nf_xfrm_me_harder.patch
+        rm -f openwrt/target/linux/generic/hack-5.4/641-sch_cake-fix-IP-protocol-handling-in-the-presence-of.patch
 
     - name: Load custom feeds
       run: |
