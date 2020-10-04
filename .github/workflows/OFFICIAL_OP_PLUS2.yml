@@ -33,6 +33,8 @@ env:
   LEAN_BRANCH: master
   TARGET_DIR: /workdir/x-wrt/target
   LEAN_DIR: /workdir/lede/package/lean
+  LEDE_FIREWALL_DIR: /workdir/lede/package/network/config/firewall
+  OP_FIREWALL_DIR: /workdir/openwrt/package/network/config/firewall
   FEEDS_CONF: feeds.conf.default
   CONFIG_FILE: OFFICIAL_OP_PLUS2.config
   DIY_P1_SH: OFFICIAL_OP_PLUS.sh
@@ -76,6 +78,8 @@ jobs:
         [ -e $TARGET_DIR ] && cp -R $TARGET_DIR openwrt
         git clone --depth 1 $LEAN_URL -b $LEAN_BRANCH lede
         [ -e $LEAN_DIR ] && cp -R $LEAN_DIR openwrt/package
+        cp $LEDE_FIREWALL_DIR/Makefile $OP_FIREWALL_DIR/Makefile
+        cp -R $LEDE_FIREWALL_DIR/patches $OP_FIREWALL_DIR
         
 
     - name: Load custom feeds
