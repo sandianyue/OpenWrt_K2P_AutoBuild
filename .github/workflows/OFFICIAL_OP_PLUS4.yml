@@ -90,6 +90,8 @@ jobs:
         cp -r openwrt-bak/target/linux/generic/backport-5.4/* openwrt/target/linux/generic/backport-5.4
         cp -r openwrt-bak/target/linux/generic/pending-5.4/* openwrt/target/linux/generic/pending-5.4
         rm -f openwrt/target/linux/generic/backport-5.4/716-v5.4-net-sfp-move-fwnode-parsing-into-sfp-bus-layer.patch
+        rm -f openwrt/target/linux/generic/backport-5.4/742-v5.5-net-sfp-add-support-for-module-quirks.patch
+        rm -f openwrt/target/linux/generic/backport-5.4/743-v5.5-net-sfp-add-some-quirks-for-GPON-modules.patch
 
     - name: Load custom feeds
       run: |
