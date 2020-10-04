@@ -93,6 +93,8 @@ jobs:
         rm -f openwrt/target/linux/generic/backport-5.4/742-v5.5-net-sfp-add-support-for-module-quirks.patch
         rm -f openwrt/target/linux/generic/backport-5.4/743-v5.5-net-sfp-add-some-quirks-for-GPON-modules.patch
         rm -f openwrt/target/linux/generic/hack-5.4/641-sch_cake-fix-IP-protocol-handling-in-the-presence-of.patch
+        rm -rf openwrt/target/linux/ramips/patches-5.4
+        cp -r openwrt-bak/target/linux/ramips/patches-5.4/* openwrt/target/linux/ramips/patches-5.4
 
     - name: Load custom feeds
       run: |
