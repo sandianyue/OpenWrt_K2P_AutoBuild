@@ -121,7 +121,7 @@ jobs:
         rm -rf package/pass/luci-app-v2ray-server
         ls /workdir/openwrt/feeds/pass | egrep -v lienol | xargs rm -rf
         ls /workdir/openwrt/feeds/pass/lienol | egrep -v luci-theme-argon-light-mod | xargs rm -rf
-        git clone --depth 1 $LEDE_PACKAGES_URL -b $LEAN_PACKAGES_BRANCH LEDE_PACKAGES
+        git clone --depth 1 $LEDE_PACKAGES_URL -b $LEDE_PACKAGES_BRANCH LEDE_PACKAGES
         cp -r LEDE_PACKAGES/lang/golang feeds/packages/lang/golang
         rm -rf LEDE_PACKAGES
       
