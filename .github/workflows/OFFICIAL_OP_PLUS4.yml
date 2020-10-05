@@ -95,7 +95,6 @@ jobs:
         rm -f openwrt/target/linux/generic/hack-5.4/641-sch_cake-fix-IP-protocol-handling-in-the-presence-of.patch
         rm -rf openwrt/target/linux/ramips/patches-5.4/*
         cp -r openwrt-bak/target/linux/ramips/patches-5.4/* openwrt/target/linux/ramips/patches-5.4
-        cp -r /usr/bin/upx openwrt/staging_dir/host/bin/upx
 
     - name: Load custom feeds
       run: |
@@ -129,6 +128,7 @@ jobs:
       run: |
         [ -e files ] && mv files openwrt/files
         [ -e $CONFIG_FILE ] && mv $CONFIG_FILE openwrt/.config
+        cp -r /usr/bin/upx openwrt/staging_dir/host/bin/upx
         chmod +x $DIY_P2_SH
         cd openwrt
         $GITHUB_WORKSPACE/$DIY_P2_SH
