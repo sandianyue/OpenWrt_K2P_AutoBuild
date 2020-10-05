@@ -98,7 +98,7 @@ jobs:
         rm -f openwrt/target/linux/generic/hack-5.4/641-sch_cake-fix-IP-protocol-handling-in-the-presence-of.patch
         rm -rf openwrt/target/linux/ramips/patches-5.4/*
         cp -r openwrt-bak/target/linux/ramips/patches-5.4/* openwrt/target/linux/ramips/patches-5.4
-        cp -r LEDE_OPENSSL_O3_FILE openwrt/package/libs/openssl/config.in
+        cp -r $LEDE_OPENSSL_O3_FILE openwrt/package/libs/openssl/Config.in
 
     - name: Load custom feeds
       run: |
