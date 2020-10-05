@@ -110,19 +110,19 @@ jobs:
       
     - name: rm -rf duplicate
       run: | 
-        rm -rf feeds/pass/lienol/ipt2socks
-        rm -rf feeds/pass/lienol/shadowsocksr-libev
-        rm -rf feeds/pass/lienol/pdnsd-alt
-        rm -rf feeds/pass/package/verysync
-        rm -rf feeds/pass/lienol/luci-app-verysync
-        rm -rf package/pass/luci-app-kodexplorer
-        rm -rf package/pass/luci-app-pppoe-relay
-        rm -rf package/pass/luci-app-pptp-server
-        rm -rf package/pass/luci-app-v2ray-server
+        rm -rf openwrt/feeds/pass/lienol/ipt2socks
+        rm -rf openwrt/feeds/pass/lienol/shadowsocksr-libev
+        rm -rf openwrt/feeds/pass/lienol/pdnsd-alt
+        rm -rf openwrt/feeds/pass/package/verysync
+        rm -rf openwrt/feeds/pass/lienol/luci-app-verysync
+        rm -rf openwrt/package/pass/luci-app-kodexplorer
+        rm -rf openwrt/package/pass/luci-app-pppoe-relay
+        rm -rf openwrt/package/pass/luci-app-pptp-server
+        rm -rf openwrt/package/pass/luci-app-v2ray-server
         ls /workdir/openwrt/feeds/pass | egrep -v lienol | xargs rm -rf
         ls /workdir/openwrt/feeds/pass/lienol | egrep -v luci-theme-argon-light-mod | xargs rm -rf
         git clone --depth 1 $LEDE_PACKAGES_URL -b $LEDE_PACKAGES_BRANCH LEDE_PACKAGES
-        cp -r LEDE_PACKAGES/lang/golang feeds/packages/lang/golang
+        cp -r LEDE_PACKAGES/lang/golang openwrt/feeds/packages/lang/golang
         rm -rf LEDE_PACKAGES
       
 
