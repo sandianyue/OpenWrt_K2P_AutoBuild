@@ -39,6 +39,7 @@ env:
   LEAN_DIR: /workdir/lede/package/lean
   LEDE_FIREWALL_DIR: /workdir/lede/package/network/config/firewall
   OP_FIREWALL_DIR: /workdir/openwrt/package/network/config/firewall
+  LEDE_OPENSSL_O3_FILE: /workdir/lede/package/libs/openssl/Config.in
   PATCH_FILE: /workdir/x-wrt-x-wrt/target/linux/generic/backport-5.4/011-kbuild-export-SUBARCH.patch
   FEEDS_CONF: feeds.conf.default
   CONFIG_FILE: OFFICIAL_OP_PLUS4.config
@@ -97,6 +98,7 @@ jobs:
         rm -f openwrt/target/linux/generic/hack-5.4/641-sch_cake-fix-IP-protocol-handling-in-the-presence-of.patch
         rm -rf openwrt/target/linux/ramips/patches-5.4/*
         cp -r openwrt-bak/target/linux/ramips/patches-5.4/* openwrt/target/linux/ramips/patches-5.4
+        cp -r LEDE_OPENSSL_O3_FILE openwrt/package/libs/openssl/config.in
 
     - name: Load custom feeds
       run: |
