@@ -16,7 +16,8 @@ sed -i 's/16384/65535/g' package/kernel/linux/files/sysctl-nf-conntrack.conf
 
 # Add a feed source
 #sed -i '$a src-git lienol https://github.com/Lienol/openwrt-package' feeds.conf.default
-sed -i '$a src-git pass https://github.com/huchanghui123/Lienol-openwrt-packages-backup' feeds.conf.default
+sed -i '$a src-git pass https://github.com/xiaorouji/openwrt-package' feeds.conf.default
+sed -i '$a src-git OpenClash https://github.com/vernesong/OpenClash' feeds.conf.default
 sed -i '$a src-git X https://github.com/x-wrt/com.x-wrt' feeds.conf.default
 sed -i '$a src-git helloworld https://github.com/fw876/helloworld' feeds.conf.default
 #sed -i '$a src-git lean https://github.com/coolsnowwolf/lede/' feeds.conf.default
