@@ -119,6 +119,7 @@ jobs:
         git clone --depth 1 $LEDE_PACKAGES_URL -b $LEDE_PACKAGES_BRANCH LEDE_PACKAGES
         cp -r LEDE_PACKAGES/lang/golang openwrt/feeds/packages/lang
         rm -rf LEDE_PACKAGES
+        rm -rf openwrt/package/lean/luci-theme-argon
       
 
     - name: Install feeds
