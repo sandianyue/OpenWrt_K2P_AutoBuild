@@ -18,7 +18,7 @@ on:
     branches:
       - main
     paths:
-      - 'OFFICIAL_OP_PASS-BETA2.config'
+      - 'OFFICIAL_OP_PASS-BETA2_MTK.config'
   schedule:
     - cron: 0 14 * * 5
   watch:
@@ -44,7 +44,7 @@ env:
   LEDE_OPENSSL_O3_FILE: /workdir/lede/package/libs/openssl/Config.in
   PATCH_FILE: /workdir/x-wrt-x-wrt/target/linux/generic/backport-5.4/011-kbuild-export-SUBARCH.patch
   FEEDS_CONF: feeds.conf.default
-  CONFIG_FILE: OFFICIAL_OP_PASS-BETA2.config
+  CONFIG_FILE: OFFICIAL_OP_PASS-BETA2_MTK.config
   DIY_P1_SH: OFFICIAL_OP_PASS.sh
   DIY_P2_SH: diy-part2.sh
   SSH_ACTIONS: false
