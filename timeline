@@ -1,0 +1,7 @@
+2020.10.8 MTK-4:
+                change libcurl-wolfssl & libustream-wolfssl --->lib*openssl              disable libwolfssl 
+                change shadowsocks-libev/passwall depends libmbedtls--->libopenssl       disable libmbedtls
+                change luci depends luci-theme-bootstrap--->argon                        disable luci-theme-bootstrap
+                libraries->SSL->libopenssl->openssl_optimize_speed set on --- get o3
+                templete disable ssrplus/passwall some redundant depends
+                v2ray disable some modules
