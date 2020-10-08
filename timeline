@@ -5,3 +5,8 @@
                 libraries->SSL->libopenssl->openssl_optimize_speed set on --- get o3
                 templete disable ssrplus/passwall some redundant depends
                 v2ray disable some modules
+                
+2020.10.8 MTK-4.1:
+                network disable iw
+                Fireware disable wireless-regdb
+                utilities disable iwinfo
