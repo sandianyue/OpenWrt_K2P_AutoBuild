@@ -99,6 +99,7 @@ jobs:
         git clone --depth 1 $ARGON_URL -b $ARGON_BRANCH argon
         rm -rf openwrt/package/lean/luci-theme-argon openwrt/package/lean/luci-theme-netgear
         cp -r argon/themes/* openwrt/package/lean
+        rm -rf openwrt/target/linux/generic/hack-5.4/999-make-THERMAL-tristate-again.patch
 
     - name: Load custom feeds
       run: |
