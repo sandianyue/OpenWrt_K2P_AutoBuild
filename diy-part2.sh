@@ -16,3 +16,5 @@ sed -i 's/zh-cn is not set/zh-cn=y/g' .config
 sed -i 's/libmbedtls/libopenssl/g'  feeds/packages/shadowsocks-libev/Makefile
 sed -i 's/libmbedtls/libopenssl/g'  feeds/pass/lienol/luci-app-passwall/Makefile
 sed -i 's/luci-theme-bootstrap/argon/g' feeds/luci/collections/luci/Makefile
+ls -d `pwd`/package/lean/luci-app-*/po/zh-cn | xargs -L 1 -n 1 -i sh -c "ln -s {} \$(dirname {})/zh-Hans"
+ls -d `pwd`/package/feeds/*/luci-app-*/po/zh-cn | xargs -L 1 -n 1 -i sh -c "ln -s {} \$(dirname {})/zh-Hans"
