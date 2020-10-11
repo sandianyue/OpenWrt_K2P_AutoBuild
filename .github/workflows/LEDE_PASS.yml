@@ -33,8 +33,8 @@ env:
   LEAN_BRANCH: master
   PATCH_URL: https://github.com/x-wrt/x-wrt
   PATCH_BRANCH: master
-  ARGON_URL: https://github.com/Lienol/openwrt-luci
-  ARGON_BRANCH: main
+  ARGON_URL: https://github.com/jerrykuku/luci-theme-argon
+  ARGON_BRANCH: 18.06
   LEDE_PACKAGES_URL: https://github.com/coolsnowwolf/packages
   LEDE_PACKAGES_BRANCH: master
   TARGET_DIR: /workdir/x-wrt/target
@@ -96,9 +96,9 @@ jobs:
         rm -f openwrt/target/linux/generic/hack-5.4/641-sch_cake-fix-IP-protocol-handling-in-the-presence-of.patch
         rm -rf openwrt/target/linux/ramips/patches-5.4/*
         cp -r openwrt-bak/target/linux/ramips/patches-5.4/* openwrt/target/linux/ramips/patches-5.4
-        git clone --depth 1 $ARGON_URL -b $ARGON_BRANCH argon
+        git clone --depth 1 $ARGON_URL -b $ARGON_BRANCH
         rm -rf openwrt/package/lean/luci-theme-argon openwrt/package/lean/luci-theme-netgear
-        cp -r argon/themes/* openwrt/package/lean
+        cp -r luci-theme-argon openwrt/package/lean/
         rm -rf openwrt/target/linux/generic/hack-5.4/999-make-THERMAL-tristate-again.patch openwrt/target/linux/generic/hack-5.4/999-make-phylink-tristate.patch
     - name: Load custom feeds
       run: |
