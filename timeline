@@ -10,3 +10,23 @@
                 network disable iw
                 Fireware disable wireless-regdb
                 utilities disable iwinfo
+                
+MTK-4.2        
+               kernel modules--->Netfilter extensions---> disable kmod-ipt-offload & kmod-nf-flow
+               
+               
+MTK-4.3
+        ls -d `pwd`/package/lean/luci-app-*/po/zh-cn | xargs -L 1 -n 1 -i sh -c "ln -s {} \$(dirname {})/zh-Hans"
+
+        ls -d `pwd`/package/feeds/*/luci-app-*/po/zh-cn | xargs -L 1 -n 1 -i sh -c "ln -s {} \$(dirname {})/zh-Hans"
+
+        LUCI--->Modules--->Minify lua sources
+
+        LUCI--->Applications--->luci-app-flowoffload [depends kmod-ipt-offload(depens kmod-nf-flow) kmod-tcp-bbr pdnsd-alt(same select by passwall/ssrplus)]
+
+MTK_LEDE_4.3
+             libraries
+              disable libuv libevent2 libustream-openssl libsodium libcap-ng
+              
+LEDE 4.4
+             back official luci-theme-argon
