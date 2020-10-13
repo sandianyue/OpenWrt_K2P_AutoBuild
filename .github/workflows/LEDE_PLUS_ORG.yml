@@ -88,10 +88,20 @@ jobs:
         git clone --depth 1 $PATCH_URL -b $PATCH_BRANCH x-wrt-x-wrt
         rm -rf openwrt/target/linux/generic/hack-5.4
         cp -r openwrt-bak/target/linux/generic/hack-5.4 openwrt/target/linux/generic/hack-5.4
+        cp -r x-wrt/target/linux/generic/hack-5.4/998-add-ndo-do-ioctl.patch openwrt/target/linux/generic/hack-5.4/998-add-ndo-do-ioctl.patch
+        960-net-core-__netif_receive_skb_core-handle-INGRESS-bef.patch
+        951-must-call-skb_list_del_init-in-NF_HOOK_LIST.patch 
+        950-fix-crash-nf_xfrm_me_harder.patch
+        920-mtd-add-spi-BH25Q128ASSIG.patch
+        950-macvlan-forward-promisc.patch
+        999-make-THERMAL-tristate-again.patch
+        rm -rf 999-thermal-tristate.patch
         rm -rf openwrt/target/linux/generic/backport-5.4
         cp -r openwrt-bak/target/linux/generic/backport-5.4 openwrt/target/linux/generic/backport-5.4
+        cp -r x-wrt/target/linux/generic/backport-5.4/999-no-warn-in-nf_rtcache_forward.patch openwrt/target/linux/generic/backport-5.4/999-no-warn-in-nf_rtcache_forward.patch
         rm -rf openwrt/target/linux/generic/pending-5.4
         cp -r openwrt-bak/target/linux/generic/pending-5.4 openwrt/target/linux/generic/pending-5.4
+        700-net-dsa-mt7530-enable-jumbo-frame.patch
         rm -rf openwrt/target/linux/ramips/patches-5.4/*
         cp -r openwrt-bak/target/linux/ramips/patches-5.4/* openwrt/target/linux/ramips/patches-5.4
         git clone --depth 1 $ARGON_URL -b $ARGON_BRANCH
