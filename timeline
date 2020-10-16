@@ -30,3 +30,12 @@ MTK_LEDE_4.3
               
 LEDE 4.4
              back official luci-theme-argon
+ 
+4.5
+              able libustream
+              able administrator htop 
+              add htop
+              back libmbedtls of sslibev-ss-local
+              add utilities--->filesystem--->chattr & e2fsprogs 310KB 暂时解决LAN自动绑定ra0 apcli0
+
+LEDE _PLUS_ORG MTK-4.6: no minify chattr e2fsprogs
